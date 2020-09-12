@@ -5,8 +5,8 @@ import random
 import time
 import copy
 
-WIDTH = 60
-HEIGHT = 20
+CELLS_WIDTH = 80
+CELLS_HEIGHT = 30
 
 def main():
     next_cells = []
@@ -19,38 +19,57 @@ def main():
         print_cells(current_cells)
 
         calculate_new_cell_states(current_cells, next_cells)
-        time.sleep(.2)
+        time.sleep(.1)
 
 #------------------------------------------------------------------------------
 
-def create_initial_configuration(next_cells):
-    for x in range(WIDTH):
+def create_initial_configuration(cells):
+    """ Construct the first configuration of the cellular automaton.
+        '#' denotes a living cell
+        ' ' denotes a blank
+
+    Args:
+        cells(list): the cellular automaton grid
+
+    """
+    for x in range(CELLS_WIDTH):
         column = []
-        for y in range(HEIGHT):
+        for y in range(CELLS_HEIGHT):
             if random.randint(0, 1) == 0:
                 column.append('#')  # add a living cell
             else:
                 column.append(' ')  # add a dead cell
-        next_cells.append(column)  # next_cells is a list of column lists
+        cells.append(column)
 
 
-def print_cells(current_cells):
-    for y in range(HEIGHT):
-        for x in range(WIDTH):
-            print(current_cells[x][y], end='')  # print the '#' or space
+def print_cells(cells):
+    """ Display the current configuration of the cellular automaton.
+
+    Args:
+        cells(list): the cellular automaton grid
+
+    """
+    for y in range(CELLS_HEIGHT):
+        for x in range(CELLS_WIDTH):
+            print(cells[x][y], end='')
         print()
 
 
 def calculate_new_cell_states(current_cells, next_cells):
-    # calculate the next step's cells based on current step's cells
-    for x in range(WIDTH):
-        for y in range(HEIGHT):
+    """ Calculate the next configuration of the cellular automaton.
+
+    Args:
+        current_cells(list): The current cellular automaton snapshot
+        next_cells(list): The next cellular automaton snapshot
+    """
+    for x in range(CELLS_WIDTH):
+        for y in range(CELLS_HEIGHT):
             # get neighboring coordinates:
             # '%' ensures coordinates are within bounds
-            left_coord = (x - 1) % WIDTH
-            right_coord = (x + 1) % WIDTH
-            above_coord = (y - 1) % HEIGHT
-            below_coord = (y + 1) % HEIGHT
+            left_coord = (x - 1) % CELLS_WIDTH
+            right_coord = (x + 1) % CELLS_WIDTH
+            above_coord = (y - 1) % CELLS_HEIGHT
+            below_coord = (y + 1) % CELLS_HEIGHT
 
             # count number of living neighbors:
             number_of_neighbors = 0

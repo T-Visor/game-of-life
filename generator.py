@@ -20,11 +20,10 @@ import random
 import time
 import copy
 
+DEAD_CELL = ' '
+LIVING_CELL = '$'
 CELLS_WIDTH = 80
 CELLS_HEIGHT = 30
-
-LIVING_CELL = '#'
-DEAD_CELL = ' '
 
 def main():
     """ Observe Conway's Game of Life
@@ -41,7 +40,7 @@ def main():
         calculate_new_cell_states(current_cells, next_cells)
         time.sleep(.1)
 
-#===================================================================
+#=============================================================================
 
 def create_initial_configuration(cells):
     """ Construct the cellular automaton.

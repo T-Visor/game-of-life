@@ -23,9 +23,6 @@ import copy
 CELLS_WIDTH = 80
 CELLS_HEIGHT = 30
 
-LIVING_CELL = '#'
-DEAD_CELL = ' '
-
 def main():
     """ Observe Conway's Game of Life
     """
@@ -44,19 +41,21 @@ def main():
 #===================================================================
 
 def create_initial_configuration(cells):
-    """ Construct the cellular automaton.
+    """ Construct the first configuration of the cellular automaton.
+        '#' denotes a living cell
+        ' ' denotes a blank
 
     Args:
-        cells(list): the matrix to be populated
+        cells(list): the cellular automaton grid
 
     """
     for x in range(CELLS_WIDTH):
         column = []
         for y in range(CELLS_HEIGHT):
             if random.randint(0, 1) == 0:
-                column.append(LIVING_CELL)
+                column.append('#')  # add a living cell
             else:
-                column.append(DEAD_CELL)
+                column.append(' ')  # add a dead cell
         cells.append(column)
 
 
@@ -64,7 +63,7 @@ def print_cells(cells):
     """ Display the current state of the cellular automaton.
 
     Args:
-        cells(list): the cellular automaton matrix
+        cells(list): the cellular automaton grid
 
     """
     for y in range(CELLS_HEIGHT):
@@ -77,9 +76,8 @@ def calculate_new_cell_states(current_cells, next_cells):
     """ Calculate the next configuration of the cellular automaton.
 
     Args:
-        current_cells(list): The current state of the cellular automaton
-        next_cells(list): The next state of the cellular automaton based
-                          on current_cells
+        current_cells(list): The current cellular automaton snapshot
+        next_cells(list): Will hold the next cellular automaton state
     """
     for x in range(CELLS_WIDTH):
         for y in range(CELLS_HEIGHT):
@@ -87,26 +85,24 @@ def calculate_new_cell_states(current_cells, next_cells):
             number_of_neighbors = get_living_neighbors(current_cells, x, y)
 
             # set cell based on Conway's Game of Life rules:
-            if current_cells[x][y] == LIVING_CELL and (number_of_neighbors == 2
-                                                  or number_of_neighbors == 3):
+            if current_cells[x][y] == '#' and (number_of_neighbors == 2 or
+                                               number_of_neighbors == 3):
                 # living cells with 2 or 3 neighbors stay alive:
-                next_cells[x][y] == LIVING_CELL
-            elif current_cells[x][y] == DEAD_CELL and number_of_neighbors == 3:
+                next_cells[x][y] == '#'
+            elif current_cells[x][y] == ' ' and number_of_neighbors == 3:
                 # dead cells with 3 neighbors become alive:
-                next_cells[x][y] = LIVING_CELL
+                next_cells[x][y] = '#'
             else:
                 # everything else dies or stays dead:
-                next_cells[x][y] = DEAD_CELL
+                next_cells[x][y] = ' '
 
 
 def get_living_neighbors(cells, x, y):
-    """ Count the number of living neighbors around a specific cell.
+    """ Count the number of living neighbors around the cell.
 
     Args:
-        cells(list): The cellular automaton matrix
-        x(int): x-coordinate of matrix
-        y(int): y-coordinate of matrix
-    """
+        cells: The cellular automaton grid
+        x
     # '%' ensures coordinates are within bounds
     left_coord = (x - 1) % CELLS_WIDTH
     right_coord = (x + 1) % CELLS_WIDTH
@@ -115,21 +111,21 @@ def get_living_neighbors(cells, x, y):
 
     number_of_neighbors = 0
 
-    if cells[left_coord][above_coord] == LIVING_CELL:
+    if cells[left_coord][above_coord] == '#':
         number_of_neighbors += 1  # top-left neighbor is alive
-    if cells[x][above_coord] == LIVING_CELL:
+    if cells[x][above_coord] == '#':
         number_of_neighbors += 1  # top neighbor is alive
-    if cells[right_coord][above_coord] == LIVING_CELL:
+    if cells[right_coord][above_coord] == '#':
         number_of_neighbors += 1  # top-right neighbor is alive
-    if cells[left_coord][y] == LIVING_CELL:
+    if cells[left_coord][y] == '#':
         number_of_neighbors += 1  # left neighbor is alive
-    if cells[right_coord][y] == LIVING_CELL:
+    if cells[right_coord][y] == '#':
         number_of_neighbors += 1  # right neighbor is alive
-    if cells[left_coord][below_coord] == LIVING_CELL:
+    if cells[left_coord][below_coord] == '#':
         number_of_neighbors += 1  # bottom-left neighbor is alive
-    if cells[x][below_coord] == LIVING_CELL:
+    if cells[x][below_coord] == '#':
         number_of_neighbors += 1  # bottom neighbor is alive
-    if cells[right_coord][below_coord] == LIVING_CELL:
+    if cells[right_coord][below_coord] == '#':
         number_of_neighbors += 1  # bottom-right neighbor is alive
 
     return number_of_neighbors

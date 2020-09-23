@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 #############################################################################
 # Description: The Game of Life, also known simply as Life,

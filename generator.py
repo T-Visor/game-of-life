@@ -40,7 +40,8 @@ def main():
         calculate_new_cell_states(current_cells, next_cells)
         time.sleep(.1)
 
-#=============================================================================
+
+
 
 def create_initial_configuration(cells):
     """ Construct the cellular automaton.
@@ -59,6 +60,8 @@ def create_initial_configuration(cells):
         cells.append(column)
 
 
+
+
 def print_cells(cells):
     """ Display the current state of the cellular automaton.
 
@@ -70,6 +73,8 @@ def print_cells(cells):
         for x in range(CELLS_WIDTH):
             print(cells[x][y], end='')
         print()
+
+
 
 
 def calculate_new_cell_states(current_cells, next_cells):
@@ -96,6 +101,8 @@ def calculate_new_cell_states(current_cells, next_cells):
             else:
                 # everything else dies or stays dead:
                 next_cells[x][y] = DEAD_CELL
+
+
 
 
 def get_living_neighbors(cells, x, y):
@@ -132,6 +139,8 @@ def get_living_neighbors(cells, x, y):
         number_of_neighbors += 1  # bottom-right neighbor is alive
 
     return number_of_neighbors
+
+
 
 
 main()

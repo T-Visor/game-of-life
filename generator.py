@@ -26,7 +26,8 @@ CELLS_WIDTH = 80
 CELLS_HEIGHT = 30
 
 def main():
-    """ Observe Conway's Game of Life
+    """ 
+        Observe Conway's Game of Life.
     """
     next_cells = []
     create_initial_configuration(next_cells)
@@ -41,13 +42,12 @@ def main():
         time.sleep(.1)
 
 
-
-
 def create_initial_configuration(cells):
-    """ Construct the cellular automaton.
+    """ 
+        Construct the initial state of the cellular automaton.
 
     Args:
-        cells(list): the matrix to be populated
+        cells (list): the matrix to be populated
 
     """
     for x in range(CELLS_WIDTH):
@@ -60,13 +60,12 @@ def create_initial_configuration(cells):
         cells.append(column)
 
 
-
-
 def print_cells(cells):
-    """ Display the current state of the cellular automaton.
+    """ 
+        Display the current state of the cellular automaton.
 
     Args:
-        cells(list): the cellular automaton matrix
+        cells (list): the cellular automaton matrix
 
     """
     for y in range(CELLS_HEIGHT):
@@ -75,15 +74,15 @@ def print_cells(cells):
         print()
 
 
-
-
 def calculate_new_cell_states(current_cells, next_cells):
-    """ Calculate the next configuration of the cellular automaton.
+    """ 
+        Calculate the next configuration of the cellular automaton.
 
     Args:
-        current_cells(list): The current state of the cellular automaton
-        next_cells(list): The next state of the cellular automaton based
-                          on current_cells
+        current_cells (list): The current state of the cellular automaton
+
+        next_cells (list): The next state of the cellular automaton based
+                           on current_cells
     """
     for x in range(CELLS_WIDTH):
         for y in range(CELLS_HEIGHT):
@@ -103,15 +102,19 @@ def calculate_new_cell_states(current_cells, next_cells):
                 next_cells[x][y] = DEAD_CELL
 
 
-
-
 def get_living_neighbors(cells, x, y):
-    """ Count the number of living neighbors around a specific cell.
+    """ 
+        Count the number of living neighbors around a specified cell.
 
     Args:
-        cells(list): The cellular automaton matrix
-        x(int): x-coordinate of matrix
-        y(int): y-coordinate of matrix
+        cells (list): The cellular automaton matrix
+
+        x (int): x-coordinate of cell
+
+        y (int): y-coordinate of cell
+
+    Returns:
+        the number of neighbors around the specified cell
     """
     # '%' ensures coordinates are within bounds
     left_coord = (x - 1) % CELLS_WIDTH
@@ -139,8 +142,6 @@ def get_living_neighbors(cells, x, y):
         number_of_neighbors += 1  # bottom-right neighbor is alive
 
     return number_of_neighbors
-
-
 
 
 main()

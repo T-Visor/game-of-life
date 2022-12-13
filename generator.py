@@ -48,7 +48,6 @@ def create_initial_configuration(cells):
 
     Args:
         cells (list): the matrix to be populated
-
     """
     for x in range(CELLS_WIDTH):
         column = []
@@ -66,7 +65,6 @@ def print_cells(cells):
 
     Args:
         cells (list): the cellular automaton matrix
-
     """
     for y in range(CELLS_HEIGHT):
         for x in range(CELLS_WIDTH):
